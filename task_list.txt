@@ -1,0 +1,10 @@
+
+[4mID[0m [4mAge [0m [4mD[0m [4mDescription                                    [0m [4mUrg [0m
+ 1 8h     try - instance - level - segmentation              0
+[48;5;234m 2[0m[48;5;234m [0m[48;5;234m8h  [0m[48;5;234m [0m[48;5;234m [0m[48;5;234m [0m[48;5;234mbuy ticket and pay for mobile - phone bills    [0m[48;5;234m [0m[48;5;234m   0[0m
+ 3 8h     send letter to the mit guy                         0
+[48;5;234m 4[0m[48;5;234m [0m[48;5;234m3h  [0m[48;5;234m [0m[48;5;234m [0m[48;5;234m [0m[48;5;234mKITTI - Segmentation                           [0m[48;5;234m [0m[48;5;234m   0[0m
+ 5 7min   try segnet                                         0
+[48;5;234m 6[0m[48;5;234m [0m[48;5;234m6min[0m[48;5;234m [0m[48;5;234m [0m[48;5;234m [0m[48;5;234mtry database in Cambridge and Michigan U       [0m[48;5;234m [0m[48;5;234m   0[0m
+
+6 tasks

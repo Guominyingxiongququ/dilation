@@ -57,7 +57,7 @@ def predict(dataset_name, input_path, output_path):
     input_dims = net.blobs['data'].shape
     batch_size, num_channels, input_height, input_width = input_dims
     caffe_in = np.zeros(input_dims, dtype=np.float32)
-    image = cv2.imread(input_path, 1).astype(np.float32) - dataset.mean_pixel
+    image = cv2.imread(input_path, flags=cv2.IMREAD_COLOR).astype(np.float32) - dataset.mean_pixel
 
     image_size = image.shape
     output_height = input_height - 2 * label_margin
@@ -95,38 +95,46 @@ def predict(dataset_name, input_path, output_path):
     if dataset.zoom > 1:
         prob = util.interp_map(prob, dataset.zoom, image_size[1], image_size[0])
     prediction = np.argmax(prob.transpose([1, 2, 0]), axis=2)
+    print(image_size)    
+    matrix_prediction = dataset.palette[prediction.ravel()]
+    print(matrix_prediction.shape)
     color_image = dataset.palette[prediction.ravel()].reshape(image_size)
+
     color_image = cv2.cvtColor(color_image, cv2.COLOR_RGB2BGR)
     print('Writing', output_path)
     cv2.imwrite(output_path, color_image)
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('dataset', nargs='?',
-                        choices=['pascal_voc', 'camvid', 'kitti', 'cityscapes'])
-    parser.add_argument('input_path', nargs='?', default='',
-                        help='Required path to input image')
-    parser.add_argument('-o', '--output_path', default=None)
-    parser.add_argument('--gpu', type=int, default=-1,
-                        help='GPU ID to run CAFFE. '
-                             'If -1 (default), CPU is used')
-    args = parser.parse_args()
-    if args.input_path == '':
+def main(arg1,arg2,arg3,arg4):
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument('dataset', nargs='?',
+    #                     choices=['pascal_voc', 'camvid', 'kitti', 'cityscapes'])
+    # parser.add_argument('input_path', nargs='?', default='',
+    #                     help='Required path to input image')
+    # parser.add_argument('-o', '--output_path', default=None)
+    # parser.add_argument('--gpu', type=int, default=-1,
+    #                     help='GPU ID to run CAFFE. '
+    #                          'If -1 (default), CPU is used')
+    # args = parser.parse_args()
+    print(arg1)
+    print(arg2)
+    print(arg3)
+    print(arg4)
+    output_path = ''
+    if arg4 == '':
         raise IOError('Error: No path to input image')
-    if not exists(args.input_path):
-        raise IOError("Error: Can't find input image " + args.input_path)
-    if args.gpu >= 0:
-        caffe.set_mode_gpu()
-        caffe.set_device(args.gpu)
-        print('Using GPU ', args.gpu)
-    else:
-        caffe.set_mode_cpu()
-        print('Using CPU')
-    if args.output_path is None:
-        args.output_path = '{}_{}.png'.format(
-                splitext(args.input_path)[0], args.dataset)
-    predict(args.dataset, args.input_path, args.output_path)
+    if not exists(arg4):
+        raise IOError("Error: Can't find input image " + arg4)
+    # if args.gpu >= 0:
+    #     caffe.set_mode_gpu()
+    caffe.set_device(0)
+    # else:
+        # caffe.set_mode_cpu()
+        # print('Using CPU')
+    if arg2 is None:
+        output_path = '{}_{}.png'.format(
+                splitext(arg4)[0], 'cityscapes')
+    predict('cityscapes', arg4, output_path)
 
 
 if __name__ == '__main__':
