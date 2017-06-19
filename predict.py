@@ -106,31 +106,17 @@ def predict(dataset_name, input_path, output_path):
 
 
 def main(arg1,arg2,arg3,arg4):
-    # parser = argparse.ArgumentParser()
-    # parser.add_argument('dataset', nargs='?',
-    #                     choices=['pascal_voc', 'camvid', 'kitti', 'cityscapes'])
-    # parser.add_argument('input_path', nargs='?', default='',
-    #                     help='Required path to input image')
-    # parser.add_argument('-o', '--output_path', default=None)
-    # parser.add_argument('--gpu', type=int, default=-1,
-    #                     help='GPU ID to run CAFFE. '
-    #                          'If -1 (default), CPU is used')
-    # args = parser.parse_args()
     print(arg1)
     print(arg2)
     print(arg3)
     print(arg4)
+    #The output path and input path needs to be changed
     output_path = ''
     if arg4 == '':
         raise IOError('Error: No path to input image')
     if not exists(arg4):
         raise IOError("Error: Can't find input image " + arg4)
-    # if args.gpu >= 0:
-    #     caffe.set_mode_gpu()
     caffe.set_device(0)
-    # else:
-        # caffe.set_mode_cpu()
-        # print('Using CPU')
     if arg2 is None:
         output_path = '{}_{}.png'.format(
                 splitext(arg4)[0], 'cityscapes')
